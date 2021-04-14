@@ -1,6 +1,6 @@
 # Inconnect API Gateway Documentation & Examples
 
-### Services
+## Services
 
 **public**
 
@@ -18,16 +18,16 @@
 * customer categorization and blacklists
 * triage and routing settings
 
-### Endpoint base URL
+## Endpoint base URL
 
 * https://api.insurando.ch/v1          (live)
 * https://api-tst.insurando.ch/v1      (test)
 
-### Interactive API documentation (Swagger)
+## Interactive API documentation (Swagger)
 
 * https://api-tst.insurando.ch/v1/docs
 
-### API architecture
+## API architecture
 
 * /utils ```create session-ids and tokens```
 * /products ```product information```
@@ -35,7 +35,7 @@
 * /assets ```mapping and option lists```
 
 
-### Concepts
+## Concepts
 
 **Opportunity**
 
@@ -50,12 +50,36 @@ when submitting customers to inconnect (sales) you must create an opportunity js
 }
 ```
 
+**Customer**
+
+Since there can be multiple persons within an opportunity, the first customer in an opportunity is marked as ```{"MainContact" : true}```
+
+```
+{
+  "Customers": [
+    {
+      "CustomerId": "hash12345",
+      "MainContact": true,
+      "ContactInfo": {
+        "FirstName": "John",
+        "LastName": "Smith",
+        "Email": "john.smith@gmail.com"
+      }
+    }
+  ],
+  "Opportunity": {
+    "OpportunityType": "Krankenversicherung",
+    "Source": "insurando.ch/krankenkasse"
+  }
+}
+```
+
 **Session-Id**
 
 before making requests you must create a session-id with GET ```./utils/sessionid``` which you will provide in the Header for future requests.
 
 ```diff 
-! (!) If you submit multiple opportunities, you must create a new session-id for each Opportunity!
+! If you submit multiple opportunities, you must create a new session-id for each Opportunity!
 ```
 
 **Header parameters**
@@ -71,5 +95,29 @@ the sesion-id is retrieved from GET ```./utils/sessionid```
 ```
 
 ```diff 
-! (!) Currently only de-CH is content-complete! 
+! Currently only de-CH is content-complete! 
 ```
+
+### Categories
+
+Insurando uses a 2-level categorization schema. 
+
+```diff 
+! The category labels must be provided in German to be compatible with the CRM system
+```
+
+* Type (high level)
+* Category (sub-category)
+
+```
+{
+    "ProductInsuranceType": "Krankenversicherung",
+    "ProductCategory": "Grundversicherung"
+}
+```
+
+find the list of valid categories ```./assets/optionlist/categories ```
+
+## Examples
+
+**
