@@ -68,4 +68,8 @@ the sesion-id is retrieved from GET ```./utils/sessionid```
 }
 ```
 
-> :warning: ```diff - currently only de-CH is content-complete! ```
+> :warning: INFO
+```diff 
+- currently only de-CH is content-complete! 
+@@
+```
