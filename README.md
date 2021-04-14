@@ -85,7 +85,7 @@ before making requests you must create a session-id with GET ```./utils/sessioni
 **Header parameters**
 
 always provide parameters in the ```Header``` of the request.
-the sesion-id is retrieved from GET ```./utils/sessionid```
+the sesion-id is retrieved from GET https://api-tst.insurando.ch/v1/utils/sessionid
 ```ll
 {
     "accept-language: de-CH",
@@ -116,8 +116,15 @@ Insurando uses a 2-level categorization schema.
 }
 ```
 
-find the list of valid categories ```./assets/optionlist/categories ```
+find the list of valid categories https://api-tst.insurando.ch/v1/assets/optionlist/categories
 
-## Examples
+## Sales endpoints
+
+There are two types of endpoints to submit Opportunities:
+
+* ```/sales/contactform``` : generic endpoint for all insurance types, always routed to Insurando CRM
+* ```/sales/<specific>``` : endpoints for specific insurance types that can be routed directly to insurance companies APIs
+
+## Example workflow for contest ("Wettbewerb)
 
 **
