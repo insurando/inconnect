@@ -25,7 +25,7 @@
 
 ### Interactive API documentation (Swagger)
 
-* api-tst.insurando.ch/v1/docs
+* https://api-tst.insurando.ch/v1/docs
 
 ### API architecture
 
@@ -61,3 +61,9 @@ the sesion-id is retrieved from GET ```./utils/sessionid```
     "x-google-id": "GA...."
 }
 ```
+---
+**NOTE**
+
+currently only de-CH is content-complete!
+
+---
