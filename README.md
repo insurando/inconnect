@@ -50,6 +50,10 @@ when submitting customers to inconnect (sales) you must create an opportunity js
 }
 ```
 
+**Session-Id**
+
+before making requests you must create a session-id with GET ```./utils/sessionid``` which you will provide in the Header for future requests
+
 **Header parameters**
 
 always provide parameters in the ```Header``` of the request.
@@ -61,9 +65,5 @@ the sesion-id is retrieved from GET ```./utils/sessionid```
     "x-google-id": "GA...."
 }
 ```
----
-**NOTE**
 
-currently only de-CH is content-complete!
-
----
+ \fbox{currently only de-CH is content-complete!}
