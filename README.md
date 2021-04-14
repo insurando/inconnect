@@ -54,7 +54,9 @@ when submitting customers to inconnect (sales) you must create an opportunity js
 
 before making requests you must create a session-id with GET ```./utils/sessionid``` which you will provide in the Header for future requests.
 
-> :warning: If submit multiple opportunities, you must create a new session-id for each Opportunity!
+```diff 
+- (!) If submit multiple opportunities, you must create a new session-id for each Opportunity!
+```
 
 **Header parameters**
 
@@ -69,6 +71,5 @@ the sesion-id is retrieved from GET ```./utils/sessionid```
 ```
 
 ```diff 
-> :warning:
-- currently only de-CH is content-complete! 
+- (!) Currently only de-CH is content-complete! 
 ```
