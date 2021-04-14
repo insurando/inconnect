@@ -90,7 +90,7 @@ the sesion-id is retrieved from GET https://api-tst.insurando.ch/v1/utils/sessio
 {
     "accept-language: de-CH",
     "x-session-id: "abc",
-    "x-google-id": "GA...."
+    "x-google-id": "GA1.2.1562643405.1595230641"
 }
 ```
 
@@ -125,6 +125,185 @@ There are two types of endpoints to submit Opportunities:
 * ```/sales/contactform``` : generic endpoint for all insurance types, always routed to Insurando CRM
 * ```/sales/<specific>``` : endpoints for specific insurance types that can be routed directly to insurance companies APIs
 
-## Example workflow for contest ("Wettbewerb)
+## Example: basic health insurance with supplementary needs
 
-**
+1. retrieve session-id
+
+```
+curl -X GET "https://api-tst.insurando.ch/v1/utils/sessionid"
+```
+
+2. provide your frontend a list of insurance companies
+
+```
+curl -X GET "https://api-tst.insurando.ch/v1/products/health/basic/insurer" -H  "accept-language: de-CH" -H  "x-session-id: hash12345" -H  "x-google-id: GA.12345"
+```
+
+3. find the valid zip code and community names:
+
+```
+curl -X GET "https://api-tst.insurando.ch/v1/products/health/basic/zipmunicipalitycity/8057" -H  "accept-language: de-CH" -H  "x-session-id: hash12345" -H  "x-google-id: ga12345"
+```
+
+```
+[
+  {
+    "ZipMunicipalityCity": "8057 - Zürich - Zürich",
+    "RegionId": "PR-REG CH1",
+    "CantonId": "ZH",
+    "CommunityNumber": 261
+  }
+]
+```
+
+4. find the available tariff options for that premium region...use **RegionId** and **CantonId** from step 3, user birth-year and **InsurerId** from step 2 to make the POST request
+
+```
+curl -X POST "https://api-tst.insurando.ch/v1/products/health/basic/tariff/options" -H  "accept-language: de-CH" -H  "x-session-id: hash12345" -H  "x-google-id: ga12345" -H  "Content-Type: application/json" -d 
+"{
+    \"InsurerId\":\"8\",
+    \"CantonId\":\"ZH\",
+    \"RegionId\":\"PR-REG CH1\",
+    \"Birthday\":1990
+}"
+```
+
+```
+{
+  "TariffType": [
+    {
+      "Label": "TAR-BASE",
+      "Name": "Freie Arztwahl"
+    },
+    {
+      "Label": "TAR-DIV",
+      "Name": "Telmed / Apotheke"
+    },
+    {
+      "Label": "TAR-HMO",
+      "Name": "HMO"
+    },
+    {
+      "Label": "TAR-HAM",
+      "Name": "Hausarzt"
+    }
+  ],
+  "Franchise": [
+    "300",
+    "500",
+    "1000",
+    "1500",
+    "2000",
+    "2500"
+  ]
+}
+```
+
+5. have the user select additional needs:
+
+```
+curl -X GET "https://api-tst.insurando.ch/v1/products/health/supplementary/needslist" -H  "accept-language: de-CH" -H  "x-session-id: hash12345" -H  "x-google-id: ga12345" -H  
+```
+
+```
+...
+      {
+        "NeedsId": 6,
+        "Need": "Alternative Heilmethoden",
+        "NeedDesc": ""
+      },
+      {
+        "NeedsId": 7,
+        "Need": "Fitness",
+        "NeedDesc": ""
+      }
+...
+```
+
+6. generate the final Opportunity payload
+
+* provide contact information of the main contact
+* we will use the /sales/contactform endpoint to submit the Opportunity
+* optional:
+    * provide the current product, if the user provided it
+    * provide the new product "Grundversicherung" if the user provided it
+    * provide the new product "Zusatzversicherung" if the user provided it
+
+```diff 
+! In case you provide products, you can leave certain product keys blank with empty "", in case the API demands it
+```
+
+```diff 
+! for Zusatzversicherung use ProductName=Needs and ProductOptions=Need1,Need2
+```
+
+```
+{
+  "Customers": [
+    {
+      "CustomerId": "hash12345",
+      "MainContact": true,
+      "ContactInfo": {
+        "FirstName": "John",
+        "LastName": "Smith",
+        "Gender": "male",
+        "BirthDate": "1990-01-31",
+        "PostCode": "8600",
+        "Canton": "ZH",
+        "CommunityName": "Dübendorf",
+        "CommunityNumber": "123",
+        "AdressStreet": "teststrasse",
+        "AdressNumber": "12b",
+        "Phone": "+41123123123",
+        "Email": "john.smith@gmail.com",
+        "Language": "de",
+        "CountryIso": "CH",
+        "ResidencePermit": "B",
+        "EmailOptIn": true
+      },
+      "Products": [
+        {
+          "ProductInsuranceType": "Krankenversicherung",
+          "ProductCategory": "Grundversicherung",
+          "ProductType": "current",
+          "ProductInsuranceName": "CSS",
+          "ProductInsurerId": "8",
+          "ProductName": "Hausarzt Med",
+          "ProductAccidentCoverage": false,
+          "ProductFranchise": "300",
+          "ProductTariffType": "Telmed",
+          "ProductVariant": "",
+          "ProductOptions": ""
+        },
+        {
+          "ProductInsuranceType": "Krankenversicherung",
+          "ProductCategory": "Grundversicherung",
+          "ProductType": "new",
+          "ProductInsuranceName": "CSS",
+          "ProductInsurerId": "8",
+          "ProductName": "Basisversicherung",
+          "ProductAccidentCoverage": true,
+          "ProductFranchise": "2500",
+          "ProductTariffType": "Freie Arztwahl",
+          "ProductVariant": "",
+          "ProductOptions": ""
+
+        },
+        {
+          "ProductInsuranceType": "Krankenversicherung",
+          "ProductCategory": "Zusatzversicherung",
+          "ProductType": "new",
+          "ProductName": "Needs",
+          "ProductVariant": "",
+          "ProductOptions": "Alternative Heilmethoden,Fitness"
+        }
+      ]
+    }
+  ],
+  "Opportunity": {
+    "OpportunityType": "Krankenversicherung",
+    "Source": "website.ch/krankenkasse",
+    "OpportunityComment": "Der Kunde ist sich bei der Zahnversicherung unsicher"
+  }
+}
+```
