@@ -66,4 +66,5 @@ the sesion-id is retrieved from GET ```./utils/sessionid```
 }
 ```
 
- \fbox{currently only de-CH is content-complete!}
+currently only de-CH is content-complete!
+{: .alert .alert-info}
