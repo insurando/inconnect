@@ -1,6 +1,6 @@
 # Inconnect API Gateway Documentation & Examples
 
-Inconnect API gateway provides the following services:
+### Services
 
 **public**
 
@@ -20,8 +20,8 @@ Inconnect API gateway provides the following services:
 
 ### Endpoint base URL
 
-* api.insurando.ch/v1          (live)
-* api-tst.insurando.ch/v1      (test)
+* https://api.insurando.ch/v1          (live)
+* https://api-tst.insurando.ch/v1      (test)
 
 ### Interactive API documentation (Swagger)
 
@@ -38,7 +38,8 @@ Inconnect API gateway provides the following services:
 ### Concepts
 
 **Opportunity**
-when submitting customers to inconnect (sales) you must create an opportunity json object
+
+when submitting customers to inconnect (sales) you must create an opportunity json object. An opportunity can contain one person or multiple persons (family/household). The Opportunity key holds information about the type and source of the opportunity.
 
 ```
 {
@@ -53,7 +54,7 @@ when submitting customers to inconnect (sales) you must create an opportunity js
 
 always provide parameters in the ```Header``` of the request.
 the sesion-id is retrieved from GET ```./utils/sessionid```
-```
+```ll
 {
     "accept-language: de-CH",
     "x-session-id: "abc",
