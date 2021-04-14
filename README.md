@@ -272,7 +272,6 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
           "ProductType": "current",
           "ProductInsuranceName": "CSS",
           "ProductInsurerId": "8",
-          "ProductName": "Hausarzt Med",
           "ProductAccidentCoverage": false,
           "ProductFranchise": "300",
           "ProductTariffType": "Telmed",
