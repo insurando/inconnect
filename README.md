@@ -226,8 +226,8 @@ curl -X GET "https://api-tst.insurando.ch/v1/products/health/supplementary/needs
 * we will use the /sales/contactform endpoint to submit the Opportunity
 * optional:
     * provide the current product, if the user provided it
-    * provide the new product "Grundversicherung" if the user provided it
-    * provide the new product "Zusatzversicherung" if the user provided it
+    * provide the new product "Grundversicherung"
+    * provide the new product or need "Zusatzversicherung"
 
 ```diff 
 ! In case you provide products, you can leave certain product keys blank with empty "", in case the API demands it
@@ -235,6 +235,10 @@ curl -X GET "https://api-tst.insurando.ch/v1/products/health/supplementary/needs
 
 ```diff 
 ! for Zusatzversicherung use ProductName=Needs and ProductOptions=Need1,Need2
+```
+
+```
+curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  "accept-language: de-CH" -H  "x-session-id: hash12345" -H  "x-google-id: ga12345" -H  "Content-Type: application/json" -d
 ```
 
 ```
