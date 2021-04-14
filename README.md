@@ -98,7 +98,7 @@ the sesion-id is retrieved from GET https://api-tst.insurando.ch/v1/utils/sessio
 ! Currently only de-CH is content-complete! 
 ```
 
-### Categories
+## Categories
 
 Insurando uses a 2-level categorization schema. 
 
@@ -307,6 +307,52 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
     "OpportunityType": "Krankenversicherung",
     "Source": "website.ch/krankenkasse",
     "OpportunityComment": "Der Kunde ist sich bei der Zahnversicherung unsicher"
+  }
+}
+```
+
+## Example: car insurance
+
+
+```
+{
+  "Customers": [
+    {
+      "CustomerId": "hash12345",
+      "MainContact": true,
+      "ContactInfo": {
+        "FirstName": "John",
+        "LastName": "Smith",
+        "Gender": "male",
+        "BirthDate": "1990-01-31",
+        "PostCode": "8600",
+        "Canton": "ZH",
+        "CommunityName": "Dübendorf",
+        "CommunityNumber": "123",
+        "AdressStreet": "teststrasse",
+        "AdressNumber": "12b",
+        "Phone": "+41123123123",
+        "Email": "john.smith@gmail.com",
+        "Language": "de",
+        "CountryIso": "CH",
+        "ResidencePermit": "B",
+        "EmailOptIn": true
+      },
+      "Products": [
+        {
+          "ProductInsuranceType": "Gegenstandsversicherung",
+          "ProductCategory": "Autoversicherung",
+          "ProductType": "new",
+          "ProductName": "Autoversicherung Anfrage",
+          "ProductVariant": "",
+          "ProductOptions": ""
+        }
+      ]
+    }
+  ],
+  "Opportunity": {
+    "OpportunityType": "Gegenstandsversicherung",
+    "Source": "website.ch/auto"
   }
 }
 ```
