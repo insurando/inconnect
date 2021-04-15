@@ -65,6 +65,32 @@ Since there can be multiple persons within an opportunity, the first customer in
           "LastName": "Smith",
           "Email": "john.smith@gmail.com"
           }
+    }
+  ],
+  "Opportunity": {
+    "OpportunityType": "Krankenversicherung",
+    "Source": "insurando.ch/krankenkasse"
+  }
+}
+```
+
+#### Products
+
+```diff 
+! Current and new product are two seperate product records "ProductType": "new", "ProductType": "current"
+```
+
+```
+{
+  "Customers": [
+    {
+      "CustomerId": "hash12345",
+      "MainContact": true,
+      "ContactInfo": {
+          "FirstName": "John",
+          "LastName": "Smith",
+          "Email": "john.smith@gmail.com"
+          }
       "Products": [
         {
           "ProductInsuranceType": "Gegenstandsversicherung",
@@ -83,13 +109,6 @@ Since there can be multiple persons within an opportunity, the first customer in
   }
 }
 ```
-
-#### Products
-
-```diff 
-! Current and new product are two seperate product records "ProductType": "new", "ProductType": "current"
-```
-
 
 #### Session-Id
 
