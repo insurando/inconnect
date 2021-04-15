@@ -199,7 +199,38 @@ curl -X POST "https://api-tst.insurando.ch/v1/products/health/basic/tariff/optio
 }
 ```
 
-5. have the user select additional needs:
+5. most health insurer require residency permits:
+
+```
+curl -X GET "https://api-tst.insurando.ch/v1/products/health/basic/countrycodespermits" -H  "accept-language: de-CH" -H  "x-session-id: hash12345" -H  "x-google-id: ga12345"
+```
+
+```
+{
+"CountryCodes":
+    {
+      "Code": "ZW",
+      "Name": "Zimbabwe"
+    },
+    {
+      "Code": "CY",
+      "Name": "Zypern"
+    }
+  ],
+  "Permits": [
+    {
+      "Code": "B",
+      "Name": "Ausweis B (Aufenthaltsbewilligung)"
+    },
+    {
+      "Code": "C",
+      "Name": "Ausweis C (Niederlassungsbewilligung)"
+    }
+  ]
+}
+```
+
+6. have the user select additional needs:
 
 ```
 curl -X GET "https://api-tst.insurando.ch/v1/products/health/supplementary/needslist" -H  "accept-language: de-CH" -H  "x-session-id: hash12345" -H  "x-google-id: ga12345" -H  
@@ -220,7 +251,7 @@ curl -X GET "https://api-tst.insurando.ch/v1/products/health/supplementary/needs
 ...
 ```
 
-6. generate the final Opportunity payload
+7. generate the final Opportunity payload
 
 * provide contact information of the main contact
 * we will use the /sales/contactform endpoint to submit the Opportunity
@@ -313,7 +344,6 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
 
 ## Example: car insurance
 
-
 ```
 {
   "Customers": [
@@ -352,6 +382,81 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
   ],
   "Opportunity": {
     "OpportunityType": "Gegenstandsversicherung",
+    "Source": "website.ch/auto"
+  }
+}
+```
+
+## Example: Contest (Wettbewerb)
+
+Special use case: website visitors may participate in contests where they provide contact information and also evaluate their current health insurance (Umfrage) or other services. This information is mapped to product configurations
+
+* for OpportunityType "Wettbewerb", a product must be created accordingly
+* in this case the product must be created with ProductCategory "Wettbewerb" with the context ProductInsuranceType="Krankenversicherung"
+* "Wettbewerb" and "Umfrage" can be combined as well, "Wettbewerb" is the leading category in this case
+* for collecting survey information with product entries the following key-value convention applies:
+    * ProductName / Title of the survey
+    * ProductVariant / Key
+    * ProductOptions / Value
+
+```
+! see the product configuration for "Wettbewerb" combined with "Umfrage"
+```
+
+```
+{
+  "Customers": [
+    {
+      "CustomerId": "hash12345",
+      "MainContact": true,
+      "ContactInfo": {
+        "FirstName": "John",
+        "LastName": "Smith",
+        "Gender": "male",
+        "BirthDate": "1990-01-31",
+        "PostCode": "8600",
+        "Canton": "ZH",
+        "CommunityName": "Dübendorf",
+        "CommunityNumber": "123",
+        "AdressStreet": "teststrasse",
+        "AdressNumber": "12b",
+        "Phone": "+41123123123",
+        "Email": "john.smith@gmail.com",
+        "Language": "de",
+        "CountryIso": "CH",
+        "ResidencePermit": "B",
+        "EmailOptIn": true
+      },
+      "Products": [
+        {
+          "ProductType": "new",
+          "ProductInsuranceType": "Krankenversicherung",
+          "ProductCategory": "Wettbewerb",
+          "ProductName": "fitness-abo-gutschein",
+          "ProductVariant": "",
+          "ProductOptions": ""
+        },
+        {
+          "ProductType": "new",
+          "ProductInsuranceType": "Krankenversicherung",
+          "ProductCategory": "Umfrage",
+          "ProductName": "Umfrage: Aktuelle Krankenkasse",
+          "ProductVariant": "Aktuelle Krankenkasse",
+          "ProductOptions": "Assura"
+        },
+        {
+          "ProductType": "new",
+          "ProductInsuranceType": "Krankenversicherung",
+          "ProductCategory": "Umfrage",
+          "ProductName": "Umfrage: Bewertung",
+          "ProductVariant": "Bewertung",
+          "ProductOptions": "5"
+        }
+      ]
+    }
+  ],
+  "Opportunity": {
+    "OpportunityType": "Wettbewerb",
     "Source": "website.ch/auto"
   }
 }
