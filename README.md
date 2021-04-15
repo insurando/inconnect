@@ -37,7 +37,7 @@
 
 ## Concepts
 
-**Opportunity**
+#### Opportunity
 
 when submitting customers to inconnect (sales) you must create an opportunity json object. An opportunity can contain one person or multiple persons (family/household). The Opportunity key holds information about the type and source of the opportunity.
 
@@ -50,7 +50,7 @@ when submitting customers to inconnect (sales) you must create an opportunity js
 }
 ```
 
-**Customer**
+#### Customer
 
 Since there can be multiple persons within an opportunity, the first customer in an opportunity is marked as ```{"MainContact" : true}```
 
@@ -84,14 +84,14 @@ Since there can be multiple persons within an opportunity, the first customer in
 }
 ```
 
-**Products**
+#### Products
 
 ```diff 
 ! Current and new product are two seperate product records "ProductType": "new", "ProductType": "current"
 ```
 
 
-**Session-Id**
+#### Session-Id
 
 before making requests you must create a session-id with GET ```./utils/sessionid``` which you will provide in the Header for future requests.
 
@@ -99,7 +99,7 @@ before making requests you must create a session-id with GET ```./utils/sessioni
 ! If you submit multiple opportunities, you must create a new session-id for each Opportunity!
 ```
 
-**Header parameters**
+#### Header parameters
 
 always provide parameters in the ```Header``` of the request.
 the sesion-id is retrieved from GET https://api-tst.insurando.ch/v1/utils/sessionid
