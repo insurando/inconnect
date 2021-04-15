@@ -144,19 +144,19 @@ There are two types of endpoints to submit Opportunities:
 
 ## Example: basic health insurance with supplementary needs
 
-1. retrieve session-id
+#### retrieve session-id
 
 ```
 curl -X GET "https://api-tst.insurando.ch/v1/utils/sessionid"
 ```
 
-2. provide your frontend a list of insurance companies
+#### provide your frontend a list of insurance companies
 
 ```
 curl -X GET "https://api-tst.insurando.ch/v1/products/health/basic/insurer" -H  "accept-language: de-CH" -H  "x-session-id: hash12345" -H  "x-google-id: GA.12345"
 ```
 
-3. find the valid zip code and community names:
+#### find the valid zip code and community names
 
 ```
 curl -X GET "https://api-tst.insurando.ch/v1/products/health/basic/zipmunicipalitycity/8057" -H  "accept-language: de-CH" -H  "x-session-id: hash12345" -H  "x-google-id: ga12345"
@@ -173,7 +173,9 @@ curl -X GET "https://api-tst.insurando.ch/v1/products/health/basic/zipmunicipali
 ]
 ```
 
-4. find the available tariff options for that premium region...use **RegionId** and **CantonId** from step 3, user birth-year and **InsurerId** from step 2 to make the POST request
+#### find the available tariff options for that premium region
+
+Use **RegionId** and **CantonId** from step 3, user birth-year and **InsurerId** from step 2 to make the POST request
 
 ```
 curl -X POST "https://api-tst.insurando.ch/v1/products/health/basic/tariff/options" -H  "accept-language: de-CH" -H  "x-session-id: hash12345" -H  "x-google-id: ga12345" -H  "Content-Type: application/json" -d 
@@ -216,7 +218,7 @@ curl -X POST "https://api-tst.insurando.ch/v1/products/health/basic/tariff/optio
 }
 ```
 
-5. most health insurer require residency permits:
+#### Most health insurer require residency permits
 
 ```
 curl -X GET "https://api-tst.insurando.ch/v1/products/health/basic/countrycodespermits" -H  "accept-language: de-CH" -H  "x-session-id: hash12345" -H  "x-google-id: ga12345"
@@ -247,7 +249,7 @@ curl -X GET "https://api-tst.insurando.ch/v1/products/health/basic/countrycodesp
 }
 ```
 
-6. have the user select additional needs:
+#### Have the user select additional needs
 
 ```
 curl -X GET "https://api-tst.insurando.ch/v1/products/health/supplementary/needslist" -H  "accept-language: de-CH" -H  "x-session-id: hash12345" -H  "x-google-id: ga12345" -H  
@@ -268,7 +270,7 @@ curl -X GET "https://api-tst.insurando.ch/v1/products/health/supplementary/needs
 ...
 ```
 
-7. generate the final Opportunity payload
+#### Final Opportunity payload
 
 * provide contact information of the main contact
 * we will use the /sales/contactform endpoint to submit the Opportunity
