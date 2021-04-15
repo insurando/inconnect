@@ -87,7 +87,7 @@ Since there can be multiple persons within an opportunity, the first customer in
 **Products**
 
 ```diff 
-Current and new product are two seperate product records "ProductType": "new", "ProductType": "current"
+! Current and new product are two seperate product records "ProductType": "new", "ProductType": "current"
 ```
 
 
