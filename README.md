@@ -399,7 +399,7 @@ Special use case: website visitors may participate in contests where they provid
     * ProductVariant / Key
     * ProductOptions / Value
 
-```
+```diff
 ! see the product configuration for "Wettbewerb" combined with "Umfrage"
 ```
 
