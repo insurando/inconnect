@@ -61,10 +61,20 @@ Since there can be multiple persons within an opportunity, the first customer in
       "CustomerId": "hash12345",
       "MainContact": true,
       "ContactInfo": {
-        "FirstName": "John",
-        "LastName": "Smith",
-        "Email": "john.smith@gmail.com"
-      }
+          "FirstName": "John",
+          "LastName": "Smith",
+          "Email": "john.smith@gmail.com"
+          }
+      "Products": [
+        {
+          "ProductInsuranceType": "Gegenstandsversicherung",
+          "ProductCategory": "Autoversicherung",
+          "ProductType": "new",
+          "ProductName": "Autoversicherung Anfrage",
+          "ProductVariant": "",
+          "ProductOptions": ""
+        }
+      ]
     }
   ],
   "Opportunity": {
@@ -73,6 +83,13 @@ Since there can be multiple persons within an opportunity, the first customer in
   }
 }
 ```
+
+**Products**
+
+```diff 
+Current and new product are two seperate product records "ProductType": "new", "ProductType": "current"
+```
+
 
 **Session-Id**
 
@@ -256,9 +273,9 @@ curl -X GET "https://api-tst.insurando.ch/v1/products/health/supplementary/needs
 * provide contact information of the main contact
 * we will use the /sales/contactform endpoint to submit the Opportunity
 * optional:
-    * provide the current product, if the user provided it
-    * provide the new product "Grundversicherung"
-    * provide the new product or need "Zusatzversicherung"
+    * provide the **current product**, if the user provided it
+    * provide the **new product** "Grundversicherung"
+    * provide the **new product** or need "Zusatzversicherung"
 
 ```diff 
 ! In case you provide products, you can leave certain product keys blank with empty "", in case the API demands it
