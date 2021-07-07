@@ -343,9 +343,7 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
           "ProductInsurerId": "8",
           "ProductAccidentCoverage": false,
           "ProductFranchise": "300",
-          "ProductTariffType": "Telmed",
-          "ProductVariant": "",
-          "ProductOptions": ""
+          "ProductTariffType": "Telmed"
         },
         {
           "ProductInsuranceType": "Krankenversicherung",
@@ -356,9 +354,11 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
           "ProductName": "Basisversicherung",
           "ProductAccidentCoverage": true,
           "ProductFranchise": "2500",
-          "ProductTariffType": "Freie Arztwahl",
-          "ProductVariant": "",
-          "ProductOptions": ""
+          "ProductTariffType": "Freie Arztwahl"
+          "ProductDoctorname": "Dr.Med.Smith",
+          "ProductDoctorId": "1200",
+          "ProductVariant": "Economy",
+          "ProductOptions": "Option1 | OptionsMustBePipeSeparated",
 
         },
         {
@@ -366,8 +366,7 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
           "ProductCategory": "Zusatzversicherung",
           "ProductType": "new",
           "ProductName": "Needs",
-          "ProductVariant": "",
-          "ProductOptions": "Alternative Heilmethoden,Fitness"
+          "ProductOptions": "Alternative Heilmethoden | Fitness"
         }
       ]
     }
@@ -412,8 +411,17 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
           "ProductCategory": "Autoversicherung",
           "ProductType": "new",
           "ProductName": "Autoversicherung Anfrage",
-          "ProductVariant": "",
-          "ProductOptions": ""
+          "ProductVariant": "Variante mit monatlicher Zahlung",
+          "ProductInsuredValue": 50000,
+          "ProductDeductible": 1000,
+          "ProductObjectType": "Auto",
+          "ProductObjectValue": 100000,
+          "ProductObjectPurchaseDate": "2017-01-31",
+          "ProductObjectBrand": "Mercedes",
+          "ProductObjectModel": "S-Klasse 600 AMG",
+          "ProductObjectFirstRegistration": "2018-01-31",
+          "ProductObjectGear": "Automatik",
+          "ProductObjectFuel": "Benzin"
         }
       ]
     }
@@ -470,32 +478,29 @@ Special use case: website visitors may participate in contests where they provid
           "ProductType": "new",
           "ProductInsuranceType": "Krankenversicherung",
           "ProductCategory": "Wettbewerb",
-          "ProductName": "fitness-abo-gutschein",
-          "ProductVariant": "",
-          "ProductOptions": ""
+          "ProductName": "fitness-abo-gutschein"
         },
         {
           "ProductType": "new",
           "ProductInsuranceType": "Krankenversicherung",
           "ProductCategory": "Umfrage",
-          "ProductName": "Umfrage: Aktuelle Krankenkasse",
-          "ProductVariant": "Aktuelle Krankenkasse",
-          "ProductOptions": "Assura"
+          "ProductSurveyQuestion": "Bewertung Krankenkasse:",
+          "ProductSurveyResponseString": "Sau schlecht!",
+          "ProductSurveyResponseMetric": 1.5
         },
         {
           "ProductType": "new",
           "ProductInsuranceType": "Krankenversicherung",
           "ProductCategory": "Umfrage",
-          "ProductName": "Umfrage: Bewertung",
-          "ProductVariant": "Bewertung",
-          "ProductOptions": "5"
+          "ProductSurveyQuestion": "Aktuelle Krankenkasse:",
+          "ProductSurveyResponseString": "Assura"
         }
       ]
     }
   ],
   "Opportunity": {
     "OpportunityType": "Wettbewerb",
-    "Source": "website.ch/auto"
+    "Source": "website.ch/wettbewerb-fitness"
   }
 }
 ```
