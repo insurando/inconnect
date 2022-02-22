@@ -2,7 +2,7 @@
 
 ## Services
 
-**public**
+**public services**
 
 * query product information of insurance products in requested language
 * query price information and price comparisons
@@ -15,8 +15,11 @@
 
 **restricted/internal**
 
-* customer categorization and blacklists
+* internal assets
+* customer information
+* billing systems
 * triage and routing settings
+* geoinformation of zip codes
 
 ## Endpoint base URL
 
@@ -33,7 +36,6 @@
 * /products ```product information```
 * /sales ```submit opportunities & household data```
 * /assets ```mapping and option lists```
-
 
 ## Concepts
 
@@ -131,7 +133,7 @@ the sesion-id is retrieved from GET https://api-tst.insurando.ch/v1/utils/sessio
 ```
 
 ```diff 
-! Currently only de-CH is content-complete! 
+! Currently only de-CH, fr-CH, en-CH is content-complete for basic health insurance! supplementary is only de-CH 
 ```
 
 ## Categories
