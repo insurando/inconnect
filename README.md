@@ -120,6 +120,10 @@ before making requests you must create a session-id with GET ```./utils/sessioni
 ! If you submit multiple opportunities, you must create a new session-id for each Opportunity!
 ```
 
+```diff 
+! Before submitting leads via /submitlead you must wait at least 1 second after creating a session-id.
+```
+
 #### Header parameters
 
 always provide parameters in the ```Header``` of the request.
