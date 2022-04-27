@@ -364,7 +364,7 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
           "ProductDoctorname": "Dr.Med.Smith",
           "ProductDoctorId": "1200",
           "ProductVariant": "Economy",
-          "ProductOptions": "Option1 | OptionsMustBePipeSeparated",
+          "ProductOptions": "Option1 | OptionsMustBePipeSeparated"
 
         },
         {
