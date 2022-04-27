@@ -360,7 +360,7 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
           "ProductName": "Basisversicherung",
           "ProductAccidentCoverage": true,
           "ProductFranchise": "2500",
-          "ProductTariffType": "Freie Arztwahl"
+          "ProductTariffType": "Freie Arztwahl",
           "ProductDoctorname": "Dr.Med.Smith",
           "ProductDoctorId": "1200",
           "ProductVariant": "Economy",
