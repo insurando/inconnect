@@ -60,7 +60,7 @@ Since there can be multiple persons within an opportunity, the first customer in
 {
   "Customers": [
     {
-      "CustomerId": "hash12345",
+      "CustomerId": "d1bc9906-81c1-4ee5-9faa-35e6b0cc8590",
       "MainContact": true,
       "ContactInfo": {
           "FirstName": "John",
@@ -86,7 +86,7 @@ Since there can be multiple persons within an opportunity, the first customer in
 {
   "Customers": [
     {
-      "CustomerId": "ba3122f1-87eb-4762-b1d2-d8109551916",
+      "CustomerId": "d1bc9906-81c1-4ee5-9faa-35e6b0cc8590",
       "MainContact": true,
       "ContactInfo": {
           "FirstName": "John",
@@ -339,7 +339,7 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
 {
   "Customers": [
     {
-      "CustomerId": "ba3122f1-87eb-4762-b1d2-d8109551916",
+      "CustomerId": "d1bc9906-81c1-4ee5-9faa-35e6b0cc8590",
       "MainContact": true,
       "ContactInfo": {
         "FirstName": "John",
@@ -373,7 +373,7 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
           "ProductDoctorname": "Dr.Med.Smith",
           "ProductDoctorId": "1200",
           "ProductVariant": "Economy",
-          "ProductOptions": ""
+          "ProductOptions": "-"
         }
       ]
     }
@@ -395,7 +395,7 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
 {
   "Customers": [
     {
-      "CustomerId": "ba3122f1-87eb-4762-b1d2-d8109551916",
+      "CustomerId": "d1bc9906-81c1-4ee5-9faa-35e6b0cc8590",
       "MainContact": true,
       "ContactInfo": {
         "FirstName": "John",
@@ -439,7 +439,7 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
           "ProductDoctorname": "Dr.Med.Smith",
           "ProductDoctorId": "1200",
           "ProductVariant": "Economy",
-          "ProductOptions": ""
+          "ProductOptions": "-"
 
         },
         {
@@ -468,7 +468,7 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
 {
   "Customers": [
     {
-      "CustomerId": "ba3122f1-87eb-4762-b1d2-d8109551916",
+      "CustomerId": "d1bc9906-81c1-4ee5-9faa-35e6b0cc8590",
       "MainContact": true,
       "ContactInfo": {
         "FirstName": "John",
@@ -512,7 +512,7 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
           "ProductDoctorname": "Dr.Med.Smith",
           "ProductDoctorId": "1200",
           "ProductVariant": "Economy",
-          "ProductOptions": ""
+          "ProductOptions": "-"
 
         },
         {
@@ -540,7 +540,7 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
 {
   "Customers": [
     {
-      "CustomerId": "ba3122f1-87eb-4762-b1d2-d8109551916",
+      "CustomerId": "d1bc9906-81c1-4ee5-9faa-35e6b0cc8590",
       "MainContact": true,
       "ContactInfo": {
         "FirstName": "John",
@@ -608,7 +608,7 @@ Special use case: website visitors may participate in contests where they provid
 {
   "Customers": [
     {
-      "CustomerId": "ba3122f1-87eb-4762-b1d2-d8109551916",
+      "CustomerId": "d1bc9906-81c1-4ee5-9faa-35e6b0cc8590",
       "MainContact": true,
       "ContactInfo": {
         "FirstName": "John",
