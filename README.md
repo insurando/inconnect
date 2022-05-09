@@ -86,7 +86,7 @@ Since there can be multiple persons within an opportunity, the first customer in
 {
   "Customers": [
     {
-      "CustomerId": "hash12345",
+      "CustomerId": "ba3122f1-87eb-4762-b1d2-d8109551916",
       "MainContact": true,
       "ContactInfo": {
           "FirstName": "John",
@@ -160,12 +160,27 @@ Insurando uses a 2-level categorization schema.
 
 find the list of valid categories https://api-tst.insurando.ch/v1/assets/optionlist/categories
 
+## CustomerId
+
+Every customer requires a CustomerId in the UUID4 format (https://www.uuidgenerator.net/version4)
+
+```diff 
+CustomerId is validated and must be in UUID4 format
+```
+
 ## Sales endpoints
 
 There are two types of endpoints to submit Opportunities:
 
 * ```/sales/contactform``` : generic endpoint for all insurance types, always routed to Insurando CRM
 * ```/sales/<specific>``` : endpoints for specific insurance types that can be routed directly to insurance companies APIs
+
+## API validation and data quality control
+
+* ```/sales/contactform``` endpoints are lightly validated, not every json key is required
+* ```/sales/<specific>``` endpoints are strictly validated, alle json keys must be set even if there is a null value
+
+/sales/contactform/submitlead
 
 ## Example: basic health insurance with supplementary needs
 
@@ -302,25 +317,85 @@ curl -X GET "https://api-tst.insurando.ch/v1/products/health/supplementary/needs
 * optional:
     * provide the **current product**, if the user provided it
     * provide the **new product** "Grundversicherung"
-    * provide the **new product** or need "Zusatzversicherung"
+    * provide the **new product** "Zusatzversicherung"
 
 ```diff 
 ! In case you provide products, you can leave certain product keys blank with empty "", in case the API demands it
 ```
 
 ```diff 
-! for Zusatzversicherung use ProductName=Needs and ProductOptions=Need1,Need2
+! If you collect customer needs (such as Zusatzversicherung) use ProductName=Needs and ProductOptions=Need1,Need2
 ```
 
 ```
 curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  "accept-language: de-CH" -H  "x-session-id: hash12345" -H  "x-google-id: ga12345" -H  "Content-Type: application/json" -d
 ```
 
+## Example: health insurance (KVG only)
+
+* endpoint: https://api-tst.insurando.ch/v1/sales/contactform/submitlead
+
 ```
 {
   "Customers": [
     {
-      "CustomerId": "hash12345",
+      "CustomerId": "ba3122f1-87eb-4762-b1d2-d8109551916",
+      "MainContact": true,
+      "ContactInfo": {
+        "FirstName": "John",
+        "LastName": "Smith",
+        "Gender": "male",
+        "BirthDate": "1990-01-31",
+        "PostCode": "8600",
+        "Canton": "ZH",
+        "CommunityName": "Dübendorf",
+        "CommunityNumber": "123",
+        "AdressStreet": "teststrasse",
+        "AdressNumber": "12b",
+        "Phone": "+41123123123",
+        "Email": "john.smith@gmail.com",
+        "Language": "de",
+        "CountryIso": "CH",
+        "ResidencePermit": "B",
+        "EmailOptIn": true
+      },
+      "Products": [
+        {
+          "ProductInsuranceType": "Krankenversicherung",
+          "ProductCategory": "Grundversicherung",
+          "ProductType": "new",
+          "ProductInsuranceName": "CSS",
+          "ProductInsurerId": "8",
+          "ProductName": "Basisversicherung",
+          "ProductAccidentCoverage": true,
+          "ProductFranchise": "2500",
+          "ProductTariffType": "Freie Arztwahl",
+          "ProductDoctorname": "Dr.Med.Smith",
+          "ProductDoctorId": "1200",
+          "ProductVariant": "Economy",
+          "ProductOptions": ""
+        }
+      ]
+    }
+  ],
+  "Opportunity": {
+    "OpportunityType": "Krankenversicherung",
+    "Source": "website.ch/krankenkasse",
+    "OpportunityComment": "Der Kunde ist sich bei der Zahnversicherung unsicher"
+  }
+}
+```
+
+
+## Example: health insurance (KVG + VVG Needs)
+
+* endpoint: https://api-tst.insurando.ch/v1/sales/contactform/submitlead
+
+```
+{
+  "Customers": [
+    {
+      "CustomerId": "ba3122f1-87eb-4762-b1d2-d8109551916",
       "MainContact": true,
       "ContactInfo": {
         "FirstName": "John",
@@ -364,7 +439,7 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
           "ProductDoctorname": "Dr.Med.Smith",
           "ProductDoctorId": "1200",
           "ProductVariant": "Economy",
-          "ProductOptions": "Option1 | OptionsMustBePipeSeparated"
+          "ProductOptions": ""
 
         },
         {
@@ -385,13 +460,87 @@ curl -X POST "https://api-tst.insurando.ch/v1/sales/contactform/submitlead" -H  
 }
 ```
 
+## Example: health insurance (KVG + VVG Products)
+
+* endpoint: https://api-tst.insurando.ch/v1/sales/contactform/submitlead
+
+```
+{
+  "Customers": [
+    {
+      "CustomerId": "ba3122f1-87eb-4762-b1d2-d8109551916",
+      "MainContact": true,
+      "ContactInfo": {
+        "FirstName": "John",
+        "LastName": "Smith",
+        "Gender": "male",
+        "BirthDate": "1990-01-31",
+        "PostCode": "8600",
+        "Canton": "ZH",
+        "CommunityName": "Dübendorf",
+        "CommunityNumber": "123",
+        "AdressStreet": "teststrasse",
+        "AdressNumber": "12b",
+        "Phone": "+41123123123",
+        "Email": "john.smith@gmail.com",
+        "Language": "de",
+        "CountryIso": "CH",
+        "ResidencePermit": "B",
+        "EmailOptIn": true
+      },
+      "Products": [
+        {
+          "ProductInsuranceType": "Krankenversicherung",
+          "ProductCategory": "Grundversicherung",
+          "ProductType": "current",
+          "ProductInsuranceName": "CSS",
+          "ProductInsurerId": "8",
+          "ProductAccidentCoverage": false,
+          "ProductFranchise": "300",
+          "ProductTariffType": "Telmed"
+        },
+        {
+          "ProductInsuranceType": "Krankenversicherung",
+          "ProductCategory": "Grundversicherung",
+          "ProductType": "new",
+          "ProductInsuranceName": "CSS",
+          "ProductInsurerId": "8",
+          "ProductName": "Basisversicherung",
+          "ProductAccidentCoverage": true,
+          "ProductFranchise": "2500",
+          "ProductTariffType": "Freie Arztwahl",
+          "ProductDoctorname": "Dr.Med.Smith",
+          "ProductDoctorId": "1200",
+          "ProductVariant": "Economy",
+          "ProductOptions": ""
+
+        },
+        {
+          "ProductInsuranceType": "Krankenversicherung",
+          "ProductCategory": "Zusatzversicherung",
+          "ProductType": "new",
+          "ProductName": "Spitalversicherung myFlex",
+          "ProductVariant": "Economy",
+          "ProductOptions": "Weltweite Deckung für Notfälle,Freie Spitalwahl"
+        }
+      ]
+    }
+  ],
+  "Opportunity": {
+    "OpportunityType": "Krankenversicherung",
+    "Source": "website.ch/krankenkasse",
+    "OpportunityComment": "Der Kunde ist sich bei der Zahnversicherung unsicher"
+  }
+}
+```
+
 ## Example: car insurance
 
 ```
 {
   "Customers": [
     {
-      "CustomerId": "hash12345",
+      "CustomerId": "ba3122f1-87eb-4762-b1d2-d8109551916",
       "MainContact": true,
       "ContactInfo": {
         "FirstName": "John",
@@ -459,7 +608,7 @@ Special use case: website visitors may participate in contests where they provid
 {
   "Customers": [
     {
-      "CustomerId": "hash12345",
+      "CustomerId": "ba3122f1-87eb-4762-b1d2-d8109551916",
       "MainContact": true,
       "ContactInfo": {
         "FirstName": "John",
